@@ -13,6 +13,18 @@
         android:theme="@style/Theme.ExamEase"
         tools:targetApi="31">
         <activity
+            android:name=".auth.ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".auth.Register"
+            android:exported="false" />
+        <activity
+            android:name=".auth.Login"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreen"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
