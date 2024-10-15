@@ -16,7 +16,7 @@
     android:id="@+id/title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Register"
+    android:text="@string/register"
     android:textSize="24sp"
     android:textStyle="bold"
     android:textColor="#1F2937"
@@ -30,7 +30,7 @@
     android:layout_height="200dp"
     android:src="@drawable/loginicon"
     android:layout_gravity="center"
-    android:contentDescription="Registration illustration"
+    android:contentDescription="@string/registration_illustration"
     android:layout_marginBottom="32dp" />
 
 <!-- Email Label and Input -->
@@ -38,7 +38,7 @@
     android:id="@+id/email_label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Email"
+    android:text="@string/email"
     android:textSize="14sp"
     android:textColor="#374151"
     android:layout_marginBottom="8dp"/>
@@ -72,7 +72,7 @@
     android:id="@+id/password_label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Password"
+    android:text="@string/password"
     android:textSize="14sp"
     android:textColor="#374151"
     android:layout_marginBottom="8dp"/>
@@ -107,7 +107,7 @@
     android:id="@+id/confirm_password_label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Confirm Password"
+    android:text="@string/confirm_password"
     android:textSize="14sp"
     android:textColor="#374151"
     android:layout_marginBottom="8dp"/>
@@ -142,13 +142,21 @@
     android:id="@+id/register_button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Register"
+    android:text="@string/register"
     android:textAllCaps="false"
     android:textSize="16sp"
     android:padding="16dp"
     android:backgroundTint="#6366F1"
     app:cornerRadius="8dp"
     android:layout_marginBottom="16dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp" />
 
 <!-- Sign In Text -->
 <LinearLayout
@@ -165,13 +173,13 @@
         android:textColor="#6B7280" />
 
     <TextView
-        android:id="@+id/signin_text"
+        android:id="@+id/login_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in"
+        android:text="@string/login_underline"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:onClick="goToSignIn"
+        android:onClick="goToLogin"
         android:textColor="#6366F1" />
 </LinearLayout>
 

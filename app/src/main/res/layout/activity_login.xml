@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout
     android:id="@+id/main"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,6 +44,7 @@
         android:layout_height="wrap_content"
         android:text="Email"
         android:textSize="14sp"
+        android:textStyle="bold"
         android:textColor="#374151"
         android:layout_marginBottom="8dp"/>
 
@@ -73,6 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password"
+        android:textStyle="bold"
         android:textSize="14sp"
         android:textColor="#374151"
         android:layout_marginBottom="8dp"/>
@@ -97,6 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:focusable="true"
             android:inputType="textPassword"
             android:padding="16dp"
             android:background="@null" />
@@ -108,9 +115,11 @@
         android:id="@+id/forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password?"
+        android:text="@string/forgot_password_underline"
         android:textSize="14sp"
-        android:textColor="@color/black"
+        android:textColor="#6366F1"
+        android:textStyle="bold"
+        android:onClick="goToForgotPass"
         android:layout_marginBottom="20dp"
         android:gravity="end" />
 
@@ -125,7 +134,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account?Create One Now "
+            android:text="Don't have an account? Create One Now "
             android:textSize="14sp"
             android:textColor="#6B7280" />
 
@@ -133,18 +142,19 @@
             android:id="@+id/signin_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign in"
+            android:text="@string/register_underline"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:onClick="goToRegister"
             android:textColor="#6366F1" />
     </LinearLayout>
 
     <!-- Sigin  Button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/register_button"
+        android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:padding="16dp"
@@ -153,3 +163,4 @@
         android:layout_marginBottom="16dp" />
 
 </LinearLayout>
+</ScrollView>

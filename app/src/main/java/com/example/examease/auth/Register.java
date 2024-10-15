@@ -18,9 +18,10 @@ public class Register extends AppCompatActivity {
 
     }
 
-    public void goToSignIn(View v){
+    public void goToLogin(View v){
         Intent login = new Intent(Register.this, Login.class);
         startActivity(login);
+        finish();
     }
 
 }

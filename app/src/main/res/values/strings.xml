@@ -3,4 +3,13 @@
     <string name="sign_in">Sign In</string>
     <string name="forgot_password">Forgot Password ?</string>
     <string name="examease">ExamEase</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="registration_illustration">Registration illustration</string>
+    <string name="login_underline"><u>Login</u></string>
+    <string name="register_underline"><u>Register</u></string>
+    <string name="forgot_password_underline"><u>Forgot Password?</u></string>
 </resources>
