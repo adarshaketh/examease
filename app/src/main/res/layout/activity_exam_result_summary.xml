@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#F5F8FF"
+    android:padding="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".quiz.ExamResultSummary">
+
+<!-- Image at the top -->
+<ImageView
+    android:id="@+id/winner_image"
+    android:layout_width="wrap_content"
+    android:layout_height="200dp"
+    android:src="@drawable/winner"
+    android:contentDescription="Winner Image"
+    android:layout_gravity="center"
+    android:layout_marginBottom="16dp"/>
+
+<!-- Congratulations Text -->
+<TextView
+    android:id="@+id/congratulations_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Congratulations"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:textColor="#333333"
+    android:layout_marginBottom="8dp"/>
+
+<!-- Subheading Text -->
+<TextView
+    android:id="@+id/submission_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Your Exam has been submitted"
+    android:textSize="16sp"
+    android:textColor="#666666"
+    android:gravity="center"
+    android:layout_marginBottom="24dp"/>
+
+<!-- Container for the stats boxes -->
+<LinearLayout
+    android:id="@+id/stats_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <!-- First Row (100 Attempted and 20 Not Attempted) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/roundedbox"
+            android:padding="16dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/attempted_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/attempted_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attempted"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/roundedbox"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/not_attempted_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/not_attempted_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not Attempted"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Second Row (120 Total Questions and 70 Minutes) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/roundedbox"
+            android:padding="16dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/total_questions_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="120"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/total_questions_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Questions"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/roundedbox"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="70"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/time_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minutes"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+<!-- Total Score Text -->
+<TextView
+    android:id="@+id/total_score_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Total Score: 60 / 120"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    android:textColor="#333333"
+    android:gravity="center"
+    android:layout_marginBottom="24dp"/>
+
+<!-- View All Results Button -->
+<Button
+    android:id="@+id/view_results_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="View All Results"
+    android:textColor="#FFFFFF"
+    android:background="@drawable/button_background"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:layout_gravity="center" />
+
+
+
+</LinearLayout>
