@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1065501438106",
+    "project_id": "examease-9f257",
+    "storage_bucket": "examease-9f257.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065501438106:android:95e92cd950b39a9c396f23",
+        "android_client_info": {
+          "package_name": "com.example.examease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRNMN5Uv_HP6qRJ9UYMTohVuQ9nwd_TZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
