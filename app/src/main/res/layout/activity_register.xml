@@ -171,6 +171,7 @@
         android:text="Sign in"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:onClick="goToSignIn"
         android:textColor="#6366F1" />
 </LinearLayout>
 

@@ -6,17 +6,22 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseHelper {
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
+    private final FirebaseAuth mAuth;
+    private final DatabaseReference databaseReference;
 
     public FirebaseHelper() {
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public boolean isLoggedIn(){
+        return mAuth.getCurrentUser() != null;
     }
 
     // Authentication methods
