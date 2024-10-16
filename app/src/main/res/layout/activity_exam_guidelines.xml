@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F8FE">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_button_section">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header Section -->
+            <TextView
+                android:id="@+id/tv_exam_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exam Details Page"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp" />
+
+            <!-- Image Section -->
+            <ImageView
+                android:id="@+id/exam_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_launcher_background"
+                android:contentDescription="Exam image"
+                android:layout_marginTop="16dp" />
+
+            <!-- Exam Title -->
+            <TextView
+                android:id="@+id/tv_exam_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Flipkart Practice Test 1"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp" />
+
+            <!-- User Info Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <!-- Profile Image -->
+                <ImageView
+                    android:id="@+id/user_profile_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_launcher_background"
+                    android:contentDescription="User profile image"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Username -->
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hello, Inchara"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- Exam Details -->
+            <TextView
+                android:id="@+id/tv_total_questions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Questions - 120"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp" />
+
+            <TextView
+                android:id="@+id/tv_exam_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time - 60 mins"
+                android:textSize="14sp"
+                android:textColor="#000000"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp" />
+
+            <!-- Guidelines Section -->
+            <LinearLayout
+                android:id="@+id/guidelines_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:padding="16dp">
+
+                <!-- All Guidelines Here -->
+                <TextView
+                    android:id="@+id/tv_guideline_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Login: Use your assigned username and password to log in to the exam portal 15 minutes before the scheduled time."
+                    android:textSize="14sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Device Requirements: Ensure your device (laptop/desktop) is fully charged and connected to a stable internet connection."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Browser Compatibility: Use a supported web browser (e.g., Chrome, Firefox) and disable all pop-up blockers."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Quiet Environment: Take the exam in a quiet, well-lit room with no disturbances."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Allowed Materials: Only use materials permitted by the exam instructions; all other resources are prohibited."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Proctoring: Your exam may be monitored via webcam and screen-sharing; make sure both are enabled."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Time Management: Keep track of the timer on your screen; the exam will automatically submit once the time is up."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• No Pauses: The exam cannot be paused; once started, you must complete it within the allocated time."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Answer Submission: Ensure each answer is saved and submitted; unsaved answers will not be recorded."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Technical Issues: If you encounter any technical issues, contact support immediately without leaving the exam interface."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Academic Integrity: Do not communicate with anyone or use unauthorized resources during the exam; violations may result in disqualification."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tv_guideline_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Completion: After submitting the exam, ensure you receive a confirmation message before logging out."
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Section for Buttons -->
+    <LinearLayout
+        android:id="@+id/bottom_button_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_gravity="center_horizontal"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="#5B67CA"
+            app:cornerRadius="8dp"
+            android:backgroundTint="#FFFFFF"
+            android:layout_marginEnd="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:textColor="#FFFFFF"
+            app:cornerRadius="8dp"
+            android:backgroundTint="#5B67CA" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
