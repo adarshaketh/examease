@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.examease.R;
 
-public class Register extends AppCompatActivity {
+public class  Register extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

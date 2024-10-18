@@ -14,7 +14,7 @@ import com.google.android.material.button.MaterialButton;
 
 public class ForgotPassword extends AppCompatActivity {
 
-    private TextInputEditText emailEditText;
+    private TextInputEditText emailEditText;  // Make sure this is TextInputEditText
     private MaterialButton sendLinkButton;
     private FirebaseAuth mAuth;
 
@@ -26,11 +26,10 @@ public class ForgotPassword extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        // Get references to views
-        emailEditText = findViewById(R.id.tilEmail);
+        // Correctly reference TextInputEditText
+        emailEditText = findViewById(R.id.email_input);  // Correct view ID for TextInputEditText
         sendLinkButton = findViewById(R.id.btnSendLink);
 
-        // Set onClickListener for the "Send Link" button
         sendLinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,13 +41,11 @@ public class ForgotPassword extends AppCompatActivity {
     private void sendPasswordResetEmail() {
         String email = emailEditText.getText().toString().trim();
 
-        // Check if email is valid
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(ForgotPassword.this, "Please enter your email", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Send password reset email using Firebase Auth
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -59,3 +56,5 @@ public class ForgotPassword extends AppCompatActivity {
                 });
     }
 }
+
+
