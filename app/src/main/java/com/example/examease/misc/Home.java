@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.examease.R;
 import com.example.examease.profile.activity_edit_profile;
 import com.example.examease.quiz.ExamAttempt;
+import com.example.examease.quiz.Exam_guidelines;
 
 public class Home extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class Home extends AppCompatActivity {
         // Find the button by its ID
         Button profileButton = findViewById(R.id.profile);
         Button quizBtn = findViewById(R.id.profile2);
+        Button examBtn = findViewById(R.id.exam_guidelines);
 
         // Set an OnClickListener on the button
         profileButton.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +38,14 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Home.this, ExamAttempt.class);
+                startActivity(intent);  // Start the ProfilePage activity
+            }
+        });
+
+        examBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Exam_guidelines.class);
                 startActivity(intent);  // Start the ProfilePage activity
             }
         });
