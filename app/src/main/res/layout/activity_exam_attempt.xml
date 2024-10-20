@@ -52,10 +52,10 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_left_arrow"
         app:tint="#000"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toTopOf="@+id/viewPagerQuestions"
-        app:layout_constraintBottom_toBottomOf="@+id/viewPagerQuestions"
+        android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerQuestions"
+        app:layout_constraintBottom_toTopOf="@id/layoutNavigation"
         app:layout_constraintVertical_bias="0.5" />
 
     <!-- Right Arrow Button -->
@@ -66,10 +66,25 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_right_arrow"
         app:tint="#000"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toTopOf="@+id/viewPagerQuestions"
-        app:layout_constraintBottom_toBottomOf="@+id/viewPagerQuestions"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerQuestions"
+        app:layout_constraintBottom_toTopOf="@id/layoutNavigation"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <!-- Text between Arrows -->
+    <TextView
+        android:id="@+id/tvSwipeToChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Swipe to Change Question"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@id/btnLeftArrow"
+        app:layout_constraintEnd_toStartOf="@id/btnRightArrow"
+        app:layout_constraintTop_toBottomOf="@id/viewPagerQuestions"
+        app:layout_constraintBottom_toTopOf="@id/layoutNavigation"
         app:layout_constraintVertical_bias="0.5" />
 
     <!-- ViewPager for Swiping Questions -->
@@ -78,12 +93,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@id/layoutNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnBack"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toTopOf="@id/tvSwipeToChange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Navigation buttons (Flag and Next) -->
     <LinearLayout
