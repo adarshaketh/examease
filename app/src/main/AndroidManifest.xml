@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ExamEase"
         tools:targetApi="31">
         <activity
+            android:name=".misc.ListExams"
+            android:exported="false" />
+        <activity
+            android:name=".profile.Profile"
+            android:exported="false" />
+        <activity
             android:name=".misc.Home"
             android:exported="false" />
         <activity
@@ -42,11 +48,9 @@
         <activity
             android:name=".profile.activity_edit_profile"
             android:exported="false" />
-
         <activity
             android:name=".quiz.Exam_guidelines"
             android:exported="false" />
-
     </application>
 
 </manifest>

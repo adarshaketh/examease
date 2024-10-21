@@ -10,21 +10,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.examease.R;
 import com.example.examease.db.FirebaseHelper;
+import com.example.examease.helpers.Functions;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-public class Exam_guidelines extends AppCompatActivity {
+import java.util.List;
 
-    // Declare views
-    private ImageView examImageView;
+public class Exam_guidelines extends AppCompatActivity {
     private TextView examTitleTextView, examDurationTextView;
     private MaterialButton backButton, startButton;
 
     // Declare FirebaseHelper and necessary variables
     private FirebaseHelper firebaseHelper;
     private FirebaseUser firebaseUserInfo;
-    private String examId = "exam1"; // Pass the examId dynamically (for example, through an Intent)
+    private String examId;
     private String userEmail;
 
     @Override
@@ -36,11 +36,13 @@ public class Exam_guidelines extends AppCompatActivity {
         firebaseHelper = new FirebaseHelper();
 
         // Initialize views
-        examImageView = findViewById(R.id.exam_image);
         examTitleTextView = findViewById(R.id.tv_exam_title);
         examDurationTextView = findViewById(R.id.tv_exam_duration);
         backButton = findViewById(R.id.btn_back);
         startButton = findViewById(R.id.btn_start);
+
+        //get examId from intent
+        examId = getIntent().getStringExtra("examid");
 
         // Set up Back button
         backButton.setOnClickListener(v -> finish()); // Close the activity on back press
@@ -67,14 +69,13 @@ public class Exam_guidelines extends AppCompatActivity {
 
                     long duration = document.getLong("duration");
 
+                    // Get the number of questions if the 'questions' field is a List
+                    List<?> questions = (List<?>) document.get("questions");
+                    int numberOfQuestions = (questions != null) ? questions.size() : 0;
+
                     // Update UI with fetched details
-                    examTitleTextView.setText(title);
-                    examDurationTextView.setText("Duration: " + duration + " seconds");
-
-                    // Optionally, you can load the image using Glide or Picasso if you store imageUrl in Firestore
-                    // String imageUrl = document.getString("imageUrl");
-                    // Glide.with(this).load(imageUrl).into(examImageView);
-
+                    examTitleTextView.setText(Functions.makeBold(title));
+                    examDurationTextView.setText(Functions.makeBold("Duration: " + duration + " seconds"));
                 } else {
                     // Handle case where the document doesn't exist
                     Toast.makeText(Exam_guidelines.this, "Exam not found", Toast.LENGTH_SHORT).show();

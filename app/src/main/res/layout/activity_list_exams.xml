@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgPrimary">
+
+    <!-- Heading -->
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Aptitude Tests"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:gravity="bottom"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <!-- Search Bar with Icon -->
+    <RelativeLayout
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/heading"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/full_rounded_corners"
+        android:paddingHorizontal="16dp"
+        android:elevation="12dp"
+        android:paddingVertical="4dp"
+        android:layout_marginHorizontal="20dp">
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/ic_menu_search" />
+
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/search_icon"
+            android:layout_marginStart="8dp"
+            android:hint="Search"
+            android:padding="8dp"
+            android:background="@null"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <!-- Filter Group -->
+    <RelativeLayout
+        android:id="@+id/filtergroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchBar"
+        android:layout_marginTop="16dp">
+
+        <RadioGroup
+            android:id="@+id/filter_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+
+            <!-- All button -->
+            <TextView
+                android:id="@+id/all_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/pill_active_background"
+                android:clickable="true"
+                android:elevation="16px"
+                android:gravity="center"
+                android:paddingHorizontal="20dp"
+                android:textSize="16sp"
+                android:paddingVertical="10dp"
+                android:text="All"
+                android:textColor="@color/white" />
+
+            <!-- Easy button -->
+            <TextView
+                android:id="@+id/easy_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/pill_active_background"
+                android:textSize="16dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="Easy" />
+
+            <!-- Intermediate button -->
+            <TextView
+                android:id="@+id/intermediate_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/pill_active_background"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="Intermediate" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <!-- ListView for Exams -->
+    <ListView
+        android:id="@+id/exam_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/filtergroup"
+        android:paddingTop="10dp"
+        android:layout_marginHorizontal="20dp"/>
+
+</RelativeLayout>

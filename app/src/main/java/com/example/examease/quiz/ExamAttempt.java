@@ -17,10 +17,12 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.examease.R;
 import com.example.examease.adapter.QuestionPagerAdapter;
+import com.example.examease.helpers.Functions;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,6 +33,7 @@ public class ExamAttempt extends AppCompatActivity {
     private ImageButton btnBack, btnGrid;
     private int currentQuestionIndex = 0;
     private CountDownTimer countDownTimer;
+    private long durationInMillis; // Store duration from Firestore
     private long timeLeftInMillis = 3600000; // 1 hour
     private TextView timerText;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -80,8 +83,6 @@ public class ExamAttempt extends AppCompatActivity {
         // Flag button click listener
         btnFlag.setOnClickListener(v -> toggleFlagQuestion());
 
-        // Start timer
-        startTimer();
 
         // Handle back press action
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -96,6 +97,14 @@ public class ExamAttempt extends AppCompatActivity {
     private void loadQuestionsFromFirestore() {
         db.collection("exams").document(examId).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
+                // Get the duration from Firestore
+                long durationSec = documentSnapshot.getLong("duration"); // Assuming 'duration' is stored in minutes
+                durationInMillis = durationSec * 1000; // Convert minutes to milliseconds
+
+                // Set the timer
+                timeLeftInMillis = durationInMillis; // Initialize timeLeftInMillis with the fetched duration
+                startTimer(); // Start the countdown timer with the fetched duration
+
                 List<Map<String, Object>> questions = (List<Map<String, Object>>) documentSnapshot.get("questions");
                 totalQuestions = questions.size(); // Get total number of questions
 
@@ -150,8 +159,17 @@ public class ExamAttempt extends AppCompatActivity {
         int seconds = (int) (timeLeftInMillis / 1000) % 60;
 
         // Format the time as HH:mm:ss and set it on the TextView
-        String timeFormatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        timerText.setText(timeFormatted);
+        String timeFormatted;
+        if(hours!=0){
+            timeFormatted = String.format(Locale.US, "%02d:%02d:%02d", hours, minutes, seconds);
+        }
+        else{
+            timeFormatted = String.format(Locale.US, "%02d:%02d", minutes, seconds);
+        }
+        if(minutes==0&&seconds<59){
+            timerText.setTextColor(getResources().getColor(R. color. red));
+        }
+        timerText.setText(Functions.makeBold(timeFormatted));
     }
 
     // Toggle flag for the current question

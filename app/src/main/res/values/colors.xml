@@ -18,4 +18,8 @@
     <color name="flagged">#D1C4E9</color>
     <color name="attempted">#C8E6C9</color>
     <color name="not_attempted">#E0E0E0</color>
+    <color name="red">#F44336</color>
+    <color name="bgPrimary">#EFF6FF</color>
+    <color name="bottom_nav_color">#FFFFFF</color> <!-- White icons -->
+    <color name="bottom_nav_color_selected">#9B6FD7</color> <!-- Orange when selected -->
 </resources>
