@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.examease.R;
 import com.example.examease.auth.Login;
+import com.example.examease.misc.Home;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,6 +55,7 @@ public class activity_profile extends AppCompatActivity {
         successRate = findViewById(R.id.success_rate);
         totalExamTime = findViewById(R.id.average_time);  // This is the TextView in the 4th card
         Button signOutButton = findViewById(R.id.btn_signout);
+        Button homeButton = findViewById(R.id.btn_home);
         TextView editProfile = findViewById(R.id.edit_profile);  // Edit Profile Button
         recyclerView = findViewById(R.id.attempted_exams_recyclerview);
 
@@ -98,6 +101,13 @@ public class activity_profile extends AppCompatActivity {
             startActivity(intent);
 
             // Finish the profile activity
+            finish();
+        });
+
+        homeButton.setOnClickListener(v -> {
+            // Create an intent to navigate to the login activity
+            Intent intent = new Intent(activity_profile.this, Home.class);
+            startActivity(intent);
             finish();
         });
     }

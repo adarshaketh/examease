@@ -42,4 +42,7 @@
     <string name="option_1">Option 1</string>
     <string name="note_select_any_one_option_below">Note: Select any one option below</string>
     <string name="question">Question</string>
+    <string name="edit"><b>Edit</b></string>
+    <string name="home"><b>Home</b></string>
+    <string name="sign_out"><b>Sign Out</b></string>
 </resources>

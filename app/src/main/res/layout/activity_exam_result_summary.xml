@@ -203,7 +203,8 @@
         android:layout_height="wrap_content"
         android:text="View All Results"
         android:textColor="#FFFFFF"
-        android:background="@drawable/button_background"
+        android:backgroundTint="#6A5CFF"
+
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
         android:paddingTop="12dp"
