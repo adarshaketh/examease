@@ -69,6 +69,7 @@ public class Home extends AppCompatActivity {
                         // Launch ProfileActivity
                         Intent intent = new Intent(Home.this, activity_profile.class);
                         startActivity(intent);  // Start the profile activity
+                        finish();
                         return true;
                 }
                 return false;

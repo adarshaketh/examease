@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.examease.R;
 import com.example.examease.auth.Login;
+import com.example.examease.helpers.Functions;
 import com.example.examease.misc.Home;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,6 +69,7 @@ public class activity_profile extends AppCompatActivity {
         if (currentUser != null) {
             String email = currentUser.getEmail();
             profileEmail.setText(email);  // Set the email in the profile section
+            profileName.setText(Functions.makeBold(currentUser.getDisplayName()));
             fetchExamIdsAndDetails(email);  // Fetch exam data for the current user
         }
 
