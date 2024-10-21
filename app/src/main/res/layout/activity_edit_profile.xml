@@ -48,7 +48,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/name_margin_top"
-                    android:text="@string/default_name"
                     android:textSize="@dimen/name_text_size"
                     android:textColor="@android:color/black" />
 
