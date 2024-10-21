@@ -2,6 +2,7 @@ package com.example.examease.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +20,26 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
+import java.util.regex.Pattern;
+
 public class Register extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText, confirmPasswordEditText;
     private Button registerButton;
     private ProgressBar progressBar;
     private FirebaseHelper firebaseHelper;
+
+    // Regex pattern for password validation
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile(
+            "^" +                 // Start of string
+                    "(?=.*[0-9])" +       // At least one digit
+                    "(?=.*[a-z])" +       // At least one lowercase letter
+                    "(?=.*[A-Z])" +       // At least one uppercase letter
+                    "(?=.*[@#$%^&+=!])" + // At least one special character
+                    "(?=\\S+$)" +         // No white spaces
+                    ".{6,}" +             // At least 6 characters
+                    "$"                   // End of string
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,21 +92,65 @@ public class Register extends AppCompatActivity {
 
     // Method to validate user input
     private boolean validateInputs(String email, String password, String confirmPassword) {
+        // Validate email
         if (TextUtils.isEmpty(email)) {
             emailEditText.setError("Email is required.");
             return false;
         }
 
+        if (email.matches(".*\\s+.*")) {
+            emailEditText.setError("Email cannot contain spaces.");
+            return false;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Invalid email format. Please enter a valid email (e.g., example@example.com).");
+            return false;
+        }
+
+        // Validate password
         if (TextUtils.isEmpty(password)) {
             passwordEditText.setError("Password is required.");
             return false;
         }
 
+        // Validate password length
         if (password.length() < 6) {
-            passwordEditText.setError("Password must be at least 6 characters.");
+            passwordEditText.setError("Password must be at least 6 characters long.");
             return false;
         }
 
+        // Check for at least one digit
+        if (!password.matches(".*\\d.*")) {
+            passwordEditText.setError("Password must contain at least 1 digit.");
+            return false;
+        }
+
+        // Check for at least one uppercase letter
+        if (!password.matches(".*[A-Z].*")) {
+            passwordEditText.setError("Password must contain at least 1 uppercase letter.");
+            return false;
+        }
+
+        // Check for at least one lowercase letter
+        if (!password.matches(".*[a-z].*")) {
+            passwordEditText.setError("Password must contain at least 1 lowercase letter.");
+            return false;
+        }
+
+        // Check for at least one special character
+        if (!password.matches(".*[@#$%^&+=!].*")) {
+            passwordEditText.setError("Password must contain at least 1 special character (e.g., @, #, $, etc.).");
+            return false;
+        }
+
+        // Check for spaces in password
+        if (password.contains(" ")) {
+            passwordEditText.setError("Password must not contain any spaces.");
+            return false;
+        }
+
+        // Confirm password
         if (!password.equals(confirmPassword)) {
             confirmPasswordEditText.setError("Passwords do not match.");
             return false;
