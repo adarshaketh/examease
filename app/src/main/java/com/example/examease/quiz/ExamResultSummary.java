@@ -97,8 +97,8 @@ public class ExamResultSummary extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        Long totalQuestions = documentSnapshot.getLong("totalMarks");  // Assuming "totalMarks" represents the total number of questions
-                        int totalQuestionsCount = totalQuestions != null ? totalQuestions.intValue() : 0;
+                        List<?> questions = (List<?>) documentSnapshot.get("questions");
+                        int totalQuestionsCount = (questions != null) ? questions.size() : 0;
 
                         // Update the UI with total questions and calculated not attempted questions
                         totalQuestionsText.setText(String.valueOf(totalQuestionsCount));

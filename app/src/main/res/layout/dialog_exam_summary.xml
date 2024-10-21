@@ -49,7 +49,7 @@
             android:id="@+id/tvQuestionsInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Total Questions - 120\nTime - 60 mins"
+            android:text="@string/total_questions_0_ntime_0_seconds"
             android:textSize="16sp"
             android:textColor="#000000"
             app:layout_constraintStart_toStartOf="parent"

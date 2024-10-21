@@ -23,7 +23,7 @@ import java.util.Map;
 public class QuestionPagerAdapter extends RecyclerView.Adapter<QuestionPagerAdapter.QuestionViewHolder> {
 
     private final Context context;
-    private final List<Map<String, Object>> questions;
+    public final List<Map<String, Object>> questions;
     private final String[] userAnswers; // To store user's answers
 
     // Constructor to initialize the adapter with context and the list of questions
@@ -41,7 +41,7 @@ public class QuestionPagerAdapter extends RecyclerView.Adapter<QuestionPagerAdap
         return new QuestionViewHolder(view);
     }
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         // Get the current question data from the list
@@ -59,6 +59,8 @@ public class QuestionPagerAdapter extends RecyclerView.Adapter<QuestionPagerAdap
         holder.rbOption2.setText(makeBold(options.get(1)));
         holder.rbOption3.setText(makeBold(options.get(2)));
         holder.rbOption4.setText(makeBold(options.get(3)));
+
+        holder.qnMarks.setText("Question Carries "+makeBold(questionData.get("marks")+" Marks"));
 
 
         // Restore user's previous selection, if any
@@ -113,7 +115,7 @@ public class QuestionPagerAdapter extends RecyclerView.Adapter<QuestionPagerAdap
     // ViewHolder class for each question item
     static class QuestionViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvQuestion; // TextView to display the question
+        TextView tvQuestion, qnMarks; // TextView to display the question
         RadioGroup radioGroupOptions; // RadioGroup to hold options
         RadioButton rbOption1, rbOption2, rbOption3, rbOption4; // RadioButtons for the four options
 
@@ -126,6 +128,7 @@ public class QuestionPagerAdapter extends RecyclerView.Adapter<QuestionPagerAdap
             rbOption2 = itemView.findViewById(R.id.rbOption2);
             rbOption3 = itemView.findViewById(R.id.rbOption3);
             rbOption4 = itemView.findViewById(R.id.rbOption4);
+            qnMarks = itemView.findViewById(R.id.qnMarks);
         }
     }
 }

@@ -46,7 +46,7 @@ public class ExamsAdapter extends RecyclerView.Adapter<ExamsAdapter.ExamViewHold
         Exam exam = examList.get(position);
 
         holder.examTitle.setText(exam.getTitle());
-        holder.examDetails.setText(exam.getTotalMarks() + " Questions\nDifficulty: " + getDifficultyLevel(exam.getDifficulty())); // Map difficulty based on value
+        holder.examDetails.setText(exam.getTotalQns() + " Questions\nDifficulty: " + getDifficultyLevel(exam.getDifficulty())); // Map difficulty based on value
 
         holder.itemView.setOnClickListener(v -> {
             // Show dialog with detailed information
@@ -101,8 +101,8 @@ public class ExamsAdapter extends RecyclerView.Adapter<ExamsAdapter.ExamViewHold
                         Long durationObj = documentSnapshot.getLong("duration");
                         int duration = durationObj != null ? durationObj.intValue() : 0;
 
-                        Long totalQuestionsObj = documentSnapshot.getLong("totalMarks");  // Assuming "totalMarks" represents the total number of questions
-                        int totalQuestions = totalQuestionsObj != null ? totalQuestionsObj.intValue() : 0;
+                        List<?> questions = (List<?>) documentSnapshot.get("questions");
+                        int totalQuestions = (questions != null) ? questions.size() : 0;
 
                         // Calculate the number of questions not attempted
                         int notAttemptedQuestions = totalQuestions - noQnsAttempted;

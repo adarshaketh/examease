@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
@@ -17,9 +18,11 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.examease.R;
 import com.example.examease.adapter.QuestionPagerAdapter;
+import com.example.examease.db.FirebaseHelper;
 import com.example.examease.helpers.Functions;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +39,7 @@ public class ExamAttempt extends AppCompatActivity {
     private long durationInMillis; // Store duration from Firestore
     private long timeLeftInMillis = 3600000; // 1 hour
     private TextView timerText;
+    private String examTitle;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String examId;
     private QuestionPagerAdapter adapter;
@@ -97,6 +101,8 @@ public class ExamAttempt extends AppCompatActivity {
     private void loadQuestionsFromFirestore() {
         db.collection("exams").document(examId).get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
+                //get exam title
+                examTitle = documentSnapshot.getString("title");
                 // Get the duration from Firestore
                 long durationSec = documentSnapshot.getLong("duration"); // Assuming 'duration' is stored in minutes
                 durationInMillis = durationSec * 1000; // Convert minutes to milliseconds
@@ -146,7 +152,7 @@ public class ExamAttempt extends AppCompatActivity {
             @Override
             public void onFinish() {
                 // Timer has finished, update the TextView or trigger an action
-                timerText.setText("Time's up!");
+                timerText.setText(Functions.makeBold("Time's up!"));
                 showSubmissionConfirmationDialog(); // Auto-submit if the time runs out
             }
         }.start(); // Start the countdown immediately
@@ -244,8 +250,25 @@ public class ExamAttempt extends AppCompatActivity {
         GridLayout questionsGrid = dialogView.findViewById(R.id.questionsGrid);
         Button btnSubmit = dialogView.findViewById(R.id.btnSubmit);
         Button btnBack = dialogView.findViewById(R.id.btnBack);
-
-// Create buttons dynamically based on the total number of questions
+        TextView questionsInfo = dialogView.findViewById(R.id.tvQuestionsInfo);
+        TextView title = dialogView.findViewById(R.id.tvTitle);
+        title.setText(Functions.makeBold(examTitle));
+        long durationSec = durationInMillis / 1000;
+        if (durationSec > 59) {
+            // Calculate minutes and remaining seconds
+            int durationMin = (int) (durationSec / 60);
+            long remainingSec = durationSec % 60;  // Get remaining seconds
+            if(remainingSec==0){
+                questionsInfo.setText(Functions.makeBold("Total Questions - "+totalQuestions+"\nDuration: " + durationMin + " Min "));
+            }
+            else{
+                questionsInfo.setText(Functions.makeBold("Total Questions - "+totalQuestions+"\nDuration: " + durationMin + " Min " + remainingSec + " Sec"));
+            }
+        } else {
+            // If duration is less than 60 seconds, just show seconds
+            questionsInfo.setText(Functions.makeBold("Total Questions - "+totalQuestions+"\nDuration: " + durationSec + " Sec"));
+        }
+        // Create buttons dynamically based on the total number of questions
         for (int i = 0; i < totalQuestions; i++) {
             Button questionButton = new Button(this);
             questionButton.setText(String.valueOf(i + 1));
@@ -311,4 +334,60 @@ public class ExamAttempt extends AppCompatActivity {
         // This will depend on how you track attempted questions
         return adapter.getUserAnswers()[questionIndex] != null; // Assuming null means not attempted
     }
+
+    // Method to calculate score and count answered questions
+    private void calculateQuizResults() {
+        String[] userAnswers = adapter.getUserAnswers(); // Get user's answers
+        int score = 0;
+        int totalAnswered = 0;
+
+        for (int i = 0; i < totalQuestions; i++) {
+            Map<String, Object> questionData = adapter.questions.get(i); // Get question data
+            String correctAnswer = (String) questionData.get("correctAnswer"); // Assuming "correctAnswer" holds the correct option
+            String userAnswer = userAnswers[i]; // User's answer for this question
+
+            // Count as answered if the user selected an option
+            if (userAnswer != null) {
+                totalAnswered++;
+                // Check if the user's answer is correct
+                if (correctAnswer.equals(userAnswer)) {
+                    score++; // Increment score for a correct answer
+                }
+            }
+        }
+
+        // After calculating the score and totalAnswered, save it to Firestore
+        saveQuizResultsToFirestore(score, totalAnswered);
+    }
+
+    // Method to save quiz results to Firestore
+    private void saveQuizResultsToFirestore(int score, int totalAnswered) {
+        String userEmail = new FirebaseHelper().getUserInfo().getEmail();
+
+        // Create a map to store the result details
+        Map<String, Object> resultData = new HashMap<>();
+        resultData.put("score", score);
+        resultData.put("answeredQuestions", totalAnswered);
+        resultData.put("duration", System.currentTimeMillis());
+
+        // Save to the "history" collection
+        db.collection("history").add(resultData).addOnSuccessListener(documentReference -> {
+            // Successfully saved to history, now update the user's document
+            db.collection("users").document(userEmail)
+                    .collection("history").document(examId) // Add/update in user's history with examId as document ID
+                    .set(resultData)
+                    .addOnSuccessListener(aVoid -> {
+                        // Successfully updated user's document
+
+                    })
+                    .addOnFailureListener(e -> {
+                        // Handle failure to update user's history
+                        Toast.makeText(ExamAttempt.this, "Failed to update user's history", Toast.LENGTH_SHORT).show();
+                    });
+        }).addOnFailureListener(e -> {
+            // Handle failure to save to history
+            Toast.makeText(ExamAttempt.this, "Failed to save to history collection", Toast.LENGTH_SHORT).show();
+        });
+    }
+
 }

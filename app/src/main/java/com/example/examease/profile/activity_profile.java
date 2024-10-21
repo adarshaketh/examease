@@ -153,7 +153,8 @@ public class activity_profile extends AppCompatActivity {
                         Long totalMarks = documentSnapshot.getLong("totalMarks");
                         Long category = documentSnapshot.getLong("category");
                         Long duration = documentSnapshot.getLong("duration");  // Fetch exam duration
-
+                        List<?> questions = (List<?>) documentSnapshot.get("questions");
+                        int totalQns = (questions != null) ? questions.size() : 0;
                         // Accumulate the total exam time (duration is in minutes)
                         if (duration != null) {
                             totalExamTimeInMinutes += duration.intValue();
@@ -173,7 +174,7 @@ public class activity_profile extends AppCompatActivity {
                         }
 
                         // Add the exam to the list
-                        Exam exam = new Exam(examId, title, totalMarks != null ? totalMarks.intValue() : 0, String.valueOf(category), startTime);
+                        Exam exam = new Exam(examId, title, totalMarks != null ? totalMarks.intValue() : 0, totalQns ,String.valueOf(category), startTime);
                         examList.add(exam);
 
                         // Sort the list in descending order based on the start time
