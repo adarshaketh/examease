@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Close Button -->
+    <ImageView
+        android:id="@+id/close_dialog"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/close_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="8dp"
+        android:contentDescription="Close Dialog" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/exam_title_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/close_dialog"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/exam_title_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Demo Quiz"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/exam_title_label"
+        app:layout_constraintTop_toTopOf="@id/exam_title_label"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Difficulty -->
+    <TextView
+        android:id="@+id/exam_difficulty_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Difficulty:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/exam_title_value"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/exam_difficulty_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Intermediate"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/exam_difficulty_label"
+        app:layout_constraintTop_toTopOf="@id/exam_difficulty_label"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Total Time -->
+    <TextView
+        android:id="@+id/exam_total_time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Time:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/exam_difficulty_value"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/exam_total_time_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="120 minutes"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/exam_total_time_label"
+        app:layout_constraintTop_toTopOf="@id/exam_total_time_label"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Score -->
+    <TextView
+        android:id="@+id/exam_score_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/exam_total_time_value"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/exam_score_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0/0"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/exam_score_label"
+        app:layout_constraintTop_toTopOf="@id/exam_score_label"
+        android:layout_marginStart="8dp"/>
+
+    <!-- No. of Questions Attempted -->
+    <TextView
+        android:id="@+id/exam_questions_attempted_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No. of Questions Attempted:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/exam_score_label"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/exam_questions_attempted_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/exam_questions_attempted_label"
+        app:layout_constraintTop_toTopOf="@id/exam_questions_attempted_label"
+        android:layout_marginStart="8dp"/>
+
+    <!-- No. of Questions Not Attempted -->
+    <TextView
+        android:id="@+id/exam_questions_not_attempted_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No. of Questions Not Attempted:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/exam_questions_attempted_value"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/exam_questions_not_attempted_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/exam_questions_not_attempted_label"
+        app:layout_constraintTop_toTopOf="@id/exam_questions_not_attempted_label"
+        android:layout_marginStart="8dp"/>
+
+    <!-- Attempted On -->
+    <TextView
+        android:id="@+id/exam_attempted_on_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attempted On:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/exam_questions_not_attempted_value"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/exam_attempted_on_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10/12/24 12:30 PM"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/exam_attempted_on_label"
+        app:layout_constraintTop_toTopOf="@id/exam_attempted_on_label"
+        android:layout_marginStart="8dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

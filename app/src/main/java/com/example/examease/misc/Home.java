@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.examease.R;
 import com.example.examease.profile.Profile;
+import com.example.examease.profile.activity_profile;
+import com.example.examease.quiz.ExamResultSummary;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -56,8 +58,8 @@ public class Home extends AppCompatActivity {
                         return true;
                     case R.id.nav_profile:
                         // Launch ProfileActivity
-                        Intent profileIntent = new Intent(Home.this, Profile.class);
-                        startActivity(profileIntent);
+                        Intent intent = new Intent(Home.this, activity_profile.class);
+                        startActivity(intent);  // Start the profile activity
                         return true;
                 }
                 return false;
