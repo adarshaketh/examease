@@ -144,6 +144,5 @@ public class Login extends AppCompatActivity {
     public void goToForgotPass(View v){
         Intent login = new Intent(Login.this, ForgotPassword.class);
         startActivity(login);
-        finish();
     }
 }

@@ -7,10 +7,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,11 +77,31 @@ public class FirebaseHelper {
         examHistory.put("noQnsAttempted", 0); // No questions attempted yet
         examHistory.put("start", startTime); // Store the start timestamp
 
-        // Update the user's history in Firestore with this exam entry
-        firestore.collection("history").document(userEmail)
-                .update("examIds", FieldValue.arrayUnion(examHistory)) // Append the new exam history entry
-                .addOnCompleteListener(listener); // Notify the calling method when the update is complete
+        // Reference to the user's history document
+        DocumentReference historyRef = firestore.collection("history").document(userEmail);
+
+        // Try to update the document if it exists, else create it
+        historyRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    // If the document exists, update the array field
+                    historyRef.update("examIds", FieldValue.arrayUnion(examHistory))
+                            .addOnCompleteListener(listener);
+                } else {
+                    // If the document does not exist, create a new document with the exam history
+                    Map<String, Object> newHistory = new HashMap<>();
+                    newHistory.put("examIds", Arrays.asList(examHistory)); // Create a new array with the exam entry
+                    historyRef.set(newHistory)
+                            .addOnCompleteListener(listener);
+                }
+            } else {
+                // Handle the error if needed
+
+            }
+        });
     }
+
 
     // Update Firestore when the exam is completed
     public void updateExamCompletion(String userEmail, String examId, long duration, int score, int noQnsAttempted, OnCompleteListener<Void> listener) {
