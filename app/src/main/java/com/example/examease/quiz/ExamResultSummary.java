@@ -71,7 +71,6 @@ public class ExamResultSummary extends AppCompatActivity {
                             Map<String, Object> recentExam = examIds.get(examIds.size() - 1);
 
                             String examId = (String) recentExam.get("examId");
-                            long startTime = (Long) recentExam.get("start");
                             int score = ((Long) recentExam.get("score")).intValue();
                             int noQnsAttempted = ((Long) recentExam.get("noQnsAttempted")).intValue();
                             int duration = ((Long) recentExam.get("duration")).intValue();

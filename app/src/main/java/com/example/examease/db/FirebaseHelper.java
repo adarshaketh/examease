@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FirebaseHelper {
@@ -105,17 +106,34 @@ public class FirebaseHelper {
 
     // Update Firestore when the exam is completed
     public void updateExamCompletion(String userEmail, String examId, long duration, int score, int noQnsAttempted, OnCompleteListener<Void> listener) {
-        // Create the updated exam history
-        Map<String, Object> updatedExamHistory = new HashMap<>();
-        updatedExamHistory.put("examId", examId);
-        updatedExamHistory.put("duration", duration);  // Record the duration (in seconds)
-        updatedExamHistory.put("score", score);        // Record the user's score
-        updatedExamHistory.put("noQnsAttempted", noQnsAttempted); // Record the number of questions attempted
-        updatedExamHistory.put("start", FieldValue.serverTimestamp()); // Store when the exam started
+        firestore.collection("history").document(userEmail).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                List<Map<String, Object>> examIds = (List<Map<String, Object>>) documentSnapshot.get("examIds");
+                if (examIds != null) {
+                    // Find the exam entry by examId
+                    for (Map<String, Object> examHistory : examIds) {
+                        if (examHistory.get("examId").equals(examId)) {
+                            // Update the fields without touching the "start" timestamp
+                            examHistory.put("duration", duration);
+                            examHistory.put("score", score);
+                            examHistory.put("noQnsAttempted", noQnsAttempted);
+                            break;
+                        }
+                    }
 
-        // Update the user's history document in Firestore
-        firestore.collection("history").document(userEmail)
-                .update("examIds", FieldValue.arrayUnion(updatedExamHistory)) // Add the updated entry
-                .addOnCompleteListener(listener); // Notify when the update is complete
+                    // Update the document with the modified examIds array
+                    firestore.collection("history").document(userEmail)
+                            .update("examIds", examIds)
+                            .addOnCompleteListener(listener); // Notify when the update is complete
+                }
+            } else {
+                // Handle the case where the document doesn't exist
+                listener.onComplete(null);  // You may want to handle this differently
+            }
+        }).addOnFailureListener(e -> {
+            // Handle failure in fetching the document
+            listener.onComplete(null);  // Notify listener of failure
+        });
     }
+
 }

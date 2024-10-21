@@ -223,10 +223,7 @@ public class ExamAttempt extends AppCompatActivity {
         Button submitBtn = dialogView.findViewById(R.id.btnSubmit);
 
         submitBtn.setOnClickListener(v -> {
-            dialog.dismiss();
-            Intent examSummaryIntent = new Intent(ExamAttempt.this, ExamResultSummary.class);
-            startActivity(examSummaryIntent);
-            finish();
+            calculateQuizResults(durationInMillis-timeLeftInMillis);
         });
 
         backBtn.setOnClickListener(v -> dialog.dismiss());
@@ -307,10 +304,6 @@ public class ExamAttempt extends AppCompatActivity {
         // Submit button to submit the exam
         btnSubmit.setOnClickListener(v -> {
             calculateQuizResults(durationInMillis-timeLeftInMillis);
-            dialog.dismiss();  // Dismiss the dialog before starting a new activity
-            Intent examSummaryIntent = new Intent(ExamAttempt.this, ExamResultSummary.class);
-            startActivity(examSummaryIntent);
-            finish();
         });
 
         dialog.show();
@@ -344,14 +337,16 @@ public class ExamAttempt extends AppCompatActivity {
 
         for (int i = 0; i < totalQuestions; i++) {
             Map<String, Object> questionData = adapter.questions.get(i); // Get question data
-            String correctAnswer = (String) questionData.get("correctAnswer"); // Assuming "correctAnswer" holds the correct option
+
+            // Check if "correctAnswer" exists and is not null
+            String correctAnswer = questionData.get("correctAnswer") != null ? questionData.get("correctAnswer").toString() : null;
             String userAnswer = userAnswers[i]; // User's answer for this question
 
             // Count as answered if the user selected an option
             if (userAnswer != null) {
                 totalAnswered++;
-                // Check if the user's answer is correct
-                if (correctAnswer.equals(userAnswer)) {
+                // Only compare if the correct answer is not null
+                if (correctAnswer != null && correctAnswer.equals(userAnswer)) {
                     score++; // Increment score for a correct answer
                 }
             }
@@ -362,16 +357,25 @@ public class ExamAttempt extends AppCompatActivity {
     }
 
     // Method to save quiz results to Firestore
+// Method to save quiz results to Firestore
     private void saveQuizResultsToFirestore(int score, int totalAnswered, long duration) {
-        String userEmail = new FirebaseHelper().getUserInfo().getEmail();
+        String userEmail = new FirebaseHelper().getUserInfo().getEmail(); // Get current user email
 
-        new FirebaseHelper().updateExamCompletion(userEmail, examId, duration/1000, score, totalAnswered, task -> {
+        new FirebaseHelper().updateExamCompletion(userEmail, examId, duration / 1000, score, totalAnswered, task -> {
             if (task.isSuccessful()) {
-                // Successfully updated Firestore, start the ExamAttempt activity
+                // Dismiss the dialog (if it's still showing)
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                // Successfully updated Firestore, proceed to next activity
                 Toast.makeText(ExamAttempt.this, "Exam Saved", Toast.LENGTH_SHORT).show();
+                // Now start the exam summary activity
+                Intent examSummaryIntent = new Intent(ExamAttempt.this, ExamResultSummary.class);
+                startActivity(examSummaryIntent);
+                finish(); // Ensure the current activity is finished
             } else {
                 // Handle error in updating Firestore
-                Toast.makeText(ExamAttempt.this, "Failed to save to Exam", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ExamAttempt.this, "Failed to save exam", Toast.LENGTH_SHORT).show();
             }
         });
     }
