@@ -153,7 +153,7 @@ public class ExamAttempt extends AppCompatActivity {
             public void onFinish() {
                 // Timer has finished, update the TextView or trigger an action
                 timerText.setText(Functions.makeBold("Time's up!"));
-                showSubmissionConfirmationDialog(); // Auto-submit if the time runs out
+                calculateQuizResults(durationInMillis); // Auto-submit if the time runs out
             }
         }.start(); // Start the countdown immediately
     }
@@ -306,6 +306,7 @@ public class ExamAttempt extends AppCompatActivity {
 
         // Submit button to submit the exam
         btnSubmit.setOnClickListener(v -> {
+            calculateQuizResults(durationInMillis-timeLeftInMillis);
             dialog.dismiss();  // Dismiss the dialog before starting a new activity
             Intent examSummaryIntent = new Intent(ExamAttempt.this, ExamResultSummary.class);
             startActivity(examSummaryIntent);
@@ -336,7 +337,7 @@ public class ExamAttempt extends AppCompatActivity {
     }
 
     // Method to calculate score and count answered questions
-    private void calculateQuizResults() {
+    private void calculateQuizResults(long duration) {
         String[] userAnswers = adapter.getUserAnswers(); // Get user's answers
         int score = 0;
         int totalAnswered = 0;
@@ -357,36 +358,21 @@ public class ExamAttempt extends AppCompatActivity {
         }
 
         // After calculating the score and totalAnswered, save it to Firestore
-        saveQuizResultsToFirestore(score, totalAnswered);
+        saveQuizResultsToFirestore(score, totalAnswered, duration);
     }
 
     // Method to save quiz results to Firestore
-    private void saveQuizResultsToFirestore(int score, int totalAnswered) {
+    private void saveQuizResultsToFirestore(int score, int totalAnswered, long duration) {
         String userEmail = new FirebaseHelper().getUserInfo().getEmail();
 
-        // Create a map to store the result details
-        Map<String, Object> resultData = new HashMap<>();
-        resultData.put("score", score);
-        resultData.put("answeredQuestions", totalAnswered);
-        resultData.put("duration", System.currentTimeMillis());
-
-        // Save to the "history" collection
-        db.collection("history").add(resultData).addOnSuccessListener(documentReference -> {
-            // Successfully saved to history, now update the user's document
-            db.collection("users").document(userEmail)
-                    .collection("history").document(examId) // Add/update in user's history with examId as document ID
-                    .set(resultData)
-                    .addOnSuccessListener(aVoid -> {
-                        // Successfully updated user's document
-
-                    })
-                    .addOnFailureListener(e -> {
-                        // Handle failure to update user's history
-                        Toast.makeText(ExamAttempt.this, "Failed to update user's history", Toast.LENGTH_SHORT).show();
-                    });
-        }).addOnFailureListener(e -> {
-            // Handle failure to save to history
-            Toast.makeText(ExamAttempt.this, "Failed to save to history collection", Toast.LENGTH_SHORT).show();
+        new FirebaseHelper().updateExamCompletion(userEmail, examId, duration/1000, score, totalAnswered, task -> {
+            if (task.isSuccessful()) {
+                // Successfully updated Firestore, start the ExamAttempt activity
+                Toast.makeText(ExamAttempt.this, "Exam Saved", Toast.LENGTH_SHORT).show();
+            } else {
+                // Handle error in updating Firestore
+                Toast.makeText(ExamAttempt.this, "Failed to save to Exam", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

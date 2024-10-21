@@ -235,7 +235,7 @@
         android:id="@+id/btn_signout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="276dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="4dp"
         android:backgroundTint="#F0F0F0"
         android:text="@string/sign_out"
@@ -248,12 +248,12 @@
         android:id="@+id/btn_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="4dp"
         android:backgroundTint="#F0F0F0"
-        android:textSize="16sp"
         android:text="@string/home"
         android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stats_grid" />
 

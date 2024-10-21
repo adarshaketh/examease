@@ -76,6 +76,8 @@ public class ListExams extends AppCompatActivity {
                             String examDescription = exam.get("description").toString();
                             int examDifficulty = Integer.parseInt(exam.get("difficulty").toString());
                             String examId = exam.get("examId").toString();
+                            String imageUrl = exam.get("imageUrl").toString();
+
                             // Filter by difficulty if it's set
                             if (difficulty == null || examDifficulty == difficulty) {
                                 // Create a map to store the exam data
@@ -84,6 +86,7 @@ public class ListExams extends AppCompatActivity {
                                 examItem.put("description", examDescription);
                                 examItem.put("difficulty", String.valueOf(examDifficulty));
                                 examItem.put("examId", examId);
+                                examItem.put("imageUrl", imageUrl);
 
                                 // Add exam to the list
                                 examList.add(examItem);
