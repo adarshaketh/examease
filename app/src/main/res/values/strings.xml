@@ -2,10 +2,10 @@
     <string name="app_name">Exam Ease</string>
     <string name="sign_in">Sign In</string>
     <string name="forgot_password">Forgot Password ?</string>
-    <string name="examease">ExamEase</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
-    <string name="confirm_password">Confirm Password</string>
+    <string name="examease"><b>ExamEase</b></string>
+    <string name="login"><b>Login</b>Login</string>
+    <string name="register"><b>Register</b></string>
+    <string name="confirm_password"><b>Confirm Password</b></string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="registration_illustration">Registration illustration</string>
@@ -20,5 +20,16 @@
     <string name="enter_your_details">Enter your details</string>
     <string name="name">Name</string>
     <string name="mobile_number">Mobile Number</string>
+    <string name="swipe_to_change_question"><b>Swipe to Change Question</b></string>
+    <string name="next"><b>Next</b></string>
+    <string name="flag"><b>Flag</b></string>
+    <string name="_99_99">99:99</string>
+    <string name="back"><b>Back</b></string>
+    <string name="summary"><b>Summary</b></string>
+    <string name="submit"><b>Submit</b></string>
+    <string name="are_you_sure_you_want_to_submit_the_exam"><b>Are you sure you want to submit the Exam?</b></string>
+    <string name="attempted">- Attempted</string>
+    <string name="flagged">- Flagged</string>
+    <string name="not_attempted">- Not Attempted</string>
 
 </resources>

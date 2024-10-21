@@ -15,7 +15,7 @@
     <color name="divider_color">#D3D3D3</color>
     <color name="defaultBtnColor">#6366F1</color>
     <color name="yellow">#FFF5A1</color>
-    <color name="purpleAccent">#673AB7</color>
-    <color name="green">#4CAF50</color>
-    <color name="gray">#5E5C5C</color>
+    <color name="flagged">#D1C4E9</color>
+    <color name="attempted">#C8E6C9</color>
+    <color name="not_attempted">#E0E0E0</color>
 </resources>

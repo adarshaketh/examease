@@ -1,6 +1,9 @@
 package com.example.examease.adapter;
 
 
+import static com.example.examease.helpers.Functions.makeBold;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +41,7 @@ public class QuestionPagerAdapter extends RecyclerView.Adapter<QuestionPagerAdap
         return new QuestionViewHolder(view);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         // Get the current question data from the list
@@ -48,13 +52,14 @@ public class QuestionPagerAdapter extends RecyclerView.Adapter<QuestionPagerAdap
         List<String> options = (List<String>) questionData.get("options");
 
         // Set the question text
-        holder.tvQuestion.setText("Q" + (position + 1) + ": " + questionText);
+        holder.tvQuestion.setText(makeBold("Q" + (position + 1) + ": " + questionText));
 
         // Set options for each radio button
-        holder.rbOption1.setText(options.get(0));
-        holder.rbOption2.setText(options.get(1));
-        holder.rbOption3.setText(options.get(2));
-        holder.rbOption4.setText(options.get(3));
+        holder.rbOption1.setText(makeBold(options.get(0)));
+        holder.rbOption2.setText(makeBold(options.get(1)));
+        holder.rbOption3.setText(makeBold(options.get(2)));
+        holder.rbOption4.setText(makeBold(options.get(3)));
+
 
         // Restore user's previous selection, if any
         holder.radioGroupOptions.clearCheck(); // Clear any previous selection

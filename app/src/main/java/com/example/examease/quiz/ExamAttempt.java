@@ -159,7 +159,7 @@ public class ExamAttempt extends AppCompatActivity {
         if (flaggedQuestions.contains(currentQuestionIndex)) {
             flaggedQuestions.remove(currentQuestionIndex); // Unflag the question
             btnFlag.setText("Flag");
-            btnFlag.setBackgroundColor(getResources().getColor(R.color.defaultBtnColor)); // Reset color
+            btnFlag.setBackgroundColor(getResources().getColor(R.color.white)); // Reset color
         } else {
             flaggedQuestions.add(currentQuestionIndex); // Flag the question
             btnFlag.setText("Unflag");
@@ -182,7 +182,7 @@ public class ExamAttempt extends AppCompatActivity {
             btnFlag.setBackgroundColor(getResources().getColor(R.color.yellow));
         } else {
             btnFlag.setText("Flag");
-            btnFlag.setBackgroundColor(getResources().getColor(R.color.defaultBtnColor));
+            btnFlag.setBackgroundColor(getResources().getColor(R.color.white));
         }
     }
 
@@ -227,18 +227,26 @@ public class ExamAttempt extends AppCompatActivity {
         Button btnSubmit = dialogView.findViewById(R.id.btnSubmit);
         Button btnBack = dialogView.findViewById(R.id.btnBack);
 
-        // Create buttons dynamically based on the total number of questions
+// Create buttons dynamically based on the total number of questions
         for (int i = 0; i < totalQuestions; i++) {
             Button questionButton = new Button(this);
             questionButton.setText(String.valueOf(i + 1));
+            questionButton.setTextSize(12); // Set small text size
+
+            // Set button dimensions and margins
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = dpToPx(40);  // Button width
+            params.height = dpToPx(40);  // Button height
+            params.setMargins(dpToPx(8), dpToPx(8), dpToPx(8), dpToPx(8));  // Set margin for spacing
+            questionButton.setLayoutParams(params);  // Apply layout params to button
 
             // Set the background color based on the question's status
             if (flaggedQuestions.contains(i)) {
-                questionButton.setBackgroundColor(getResources().getColor(R.color.purpleAccent)); // Flagged
+                questionButton.setBackgroundColor(getResources().getColor(R.color.flagged)); // Flagged
             } else if (userHasAttempted(i)) {
-                questionButton.setBackgroundColor(getResources().getColor(R.color.green)); // Attempted
+                questionButton.setBackgroundColor(getResources().getColor(R.color.attempted)); // Attempted
             } else {
-                questionButton.setBackgroundColor(getResources().getColor(R.color.gray)); // Not Attempted
+                questionButton.setBackgroundColor(getResources().getColor(R.color.not_attempted)); // Not Attempted
             }
 
             // Set click listener for each question button
@@ -264,6 +272,11 @@ public class ExamAttempt extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    // Helper function to convert dp to pixels
+    private int dpToPx(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
     }
 
     @Override
