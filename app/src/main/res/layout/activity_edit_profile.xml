@@ -92,20 +92,6 @@
                         android:inputType="textEmailAddress" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/input_field_margin_top"
-                    android:hint="@string/mobile_number"
-                    app:startIconDrawable="@drawable/ic_phone_edit_profile">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/mobileNumberEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="phone" />
-                </com.google.android.material.textfield.TextInputLayout>
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
