@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.examease.R;
 import com.example.examease.profile.activity_profile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -68,6 +67,11 @@ public class Home extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         return true;
+                    case R.id.nav_feedback:
+                        Intent feedbackIntent = new Intent(Home.this, Feedback.class);
+                        startActivity(feedbackIntent);
+                        finish();
+                        return true;
                     case R.id.nav_profile:
                         // Launch ProfileActivity
                         Intent intent = new Intent(Home.this, activity_profile.class);
@@ -77,13 +81,6 @@ public class Home extends AppCompatActivity {
                 }
                 return false;
             }
-        });
-
-        FloatingActionButton fabFeedback = findViewById(R.id.fab_feedback);
-        fabFeedback.setOnClickListener(v -> {
-            // Launch the feedback form activity
-            Intent feedbackIntent = new Intent(Home.this, Feedback.class);
-            startActivity(feedbackIntent);
         });
     }
 

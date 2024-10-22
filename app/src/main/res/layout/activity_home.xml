@@ -75,18 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation_menu"
-        android:background="@color/black"
+        android:background="@color/navbar"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemTextColor="@color/bottom_nav_color"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_feedback"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_navigation"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        app:srcCompat="@drawable/ic_user_edit_profile"
-    app:backgroundTint="@color/colorPrimary" />
 </RelativeLayout>
