@@ -49,7 +49,6 @@ public class ExamListAdapter extends BaseAdapter {
         }
 
         // Get references to the UI elements
-        ImageView examImage = convertView.findViewById(R.id.exam_image);
         TextView examTitle = convertView.findViewById(R.id.exam_title);
         TextView examDescription = convertView.findViewById(R.id.exam_description);
 
@@ -59,21 +58,6 @@ public class ExamListAdapter extends BaseAdapter {
         // Set the title and description
         examTitle.setText(exam.get("title"));
         examDescription.setText(exam.get("description"));
-
-        // Get the image URL and load the image using Glide
-        String imageUrl = exam.get("imageUrl");
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference(imageUrl);
-
-            Glide.with(context)
-                    .load(storageReference)
-                    .placeholder(R.drawable.exam_icon)  // Placeholder while loading
-                    .error(R.drawable.exam_icon)       // Error image if something goes wrong
-                    .into(examImage);
-        } else {
-            // If no image is available, load a default placeholder
-            examImage.setImageResource(R.drawable.exam_icon);
-        }
 
         return convertView;
     }
