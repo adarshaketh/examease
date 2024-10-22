@@ -105,6 +105,8 @@ public class Feedback extends AppCompatActivity {
                     .update("feedbacks", com.google.firebase.firestore.FieldValue.arrayUnion(feedbackData))
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(Feedback.this, "Anonymous feedback submitted successfully.", Toast.LENGTH_LONG).show();
+                        Intent feedbackIntent = new Intent(Feedback.this, Home.class);
+                        startActivity(feedbackIntent);
                         finish(); // Close activity after submission
                     })
                     .addOnFailureListener(e -> Toast.makeText(Feedback.this, "Failed to submit feedback.", Toast.LENGTH_SHORT).show());
@@ -118,6 +120,8 @@ public class Feedback extends AppCompatActivity {
                     .update("feedbacks", com.google.firebase.firestore.FieldValue.arrayUnion(feedbackData))
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(Feedback.this, "Feedback submitted successfully.", Toast.LENGTH_LONG).show();
+                        Intent feedbackIntent = new Intent(Feedback.this, Home.class);
+                        startActivity(feedbackIntent);
                         finish(); // Close activity after submission
                     })
                     .addOnFailureListener(e -> {
@@ -129,6 +133,8 @@ public class Feedback extends AppCompatActivity {
                                 }})
                                 .addOnSuccessListener(aVoid -> {
                                     Toast.makeText(Feedback.this, "Feedback submitted successfully.", Toast.LENGTH_LONG).show();
+                                    Intent feedbackIntent = new Intent(Feedback.this, Home.class);
+                                    startActivity(feedbackIntent);
                                     finish();
                                 })
                                 .addOnFailureListener(e2 -> Toast.makeText(Feedback.this, "Failed to submit feedback.", Toast.LENGTH_SHORT).show());

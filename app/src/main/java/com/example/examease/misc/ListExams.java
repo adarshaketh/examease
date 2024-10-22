@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,9 +48,13 @@ public class ListExams extends AppCompatActivity {
         examListView = findViewById(R.id.exam_list);
         examList = new ArrayList<>();
 
+        ImageView close = findViewById(R.id.close);
         TextView heading = findViewById(R.id.heading);
         heading.setText(Functions.makeBold(getIntent().getStringExtra("title")));
 
+        close.setOnClickListener(v -> {
+            finish();
+        });
         // Get the category index from the intent
         Intent intent = getIntent();
         int categoryIndex = intent.getIntExtra("categoryIndex", -1);

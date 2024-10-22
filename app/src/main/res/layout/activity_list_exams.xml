@@ -1,28 +1,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bgPrimary">
 
-    <!-- Heading -->
-    <TextView
-        android:id="@+id/heading"
+    <!-- Heading with Close Button -->
+    <RelativeLayout
+        android:id="@+id/nestedRelative"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Aptitude Tests"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:gravity="bottom"
-        android:layout_alignParentTop="true"
         android:layout_marginHorizontal="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp">
+
+        <!-- Heading -->
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Aptitude Tests"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:gravity="center_vertical" />
+
+        <!-- Close Button -->
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Close Dialog"
+            android:src="@drawable/close_icon"
+            android:layout_marginEnd="8dp" />
+    </RelativeLayout>
 
     <!-- Search Bar with Icon -->
     <RelativeLayout
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/heading"
+        android:layout_below="@id/nestedRelative"
         android:layout_marginTop="16dp"
         android:background="@drawable/full_rounded_corners"
         android:paddingHorizontal="16dp"
