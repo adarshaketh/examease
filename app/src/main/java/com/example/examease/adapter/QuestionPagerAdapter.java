@@ -86,16 +86,16 @@ public class QuestionPagerAdapter extends RecyclerView.Adapter<QuestionPagerAdap
         holder.radioGroupOptions.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rbOption1:
-                    userAnswers[position] = "Option1";
+                    userAnswers[position] = "0";
                     break;
                 case R.id.rbOption2:
-                    userAnswers[position] = "Option2";
+                    userAnswers[position] = "1";
                     break;
                 case R.id.rbOption3:
-                    userAnswers[position] = "Option3";
+                    userAnswers[position] = "2";
                     break;
                 case R.id.rbOption4:
-                    userAnswers[position] = "Option4";
+                    userAnswers[position] = "3";
                     break;
             }
         });

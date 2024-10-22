@@ -3,6 +3,7 @@ package com.example.examease.quiz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.example.examease.db.FirebaseHelper;
 import com.example.examease.helpers.Functions;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -153,7 +155,7 @@ public class ExamAttempt extends AppCompatActivity {
             public void onFinish() {
                 // Timer has finished, update the TextView or trigger an action
                 timerText.setText(Functions.makeBold("Time's up!"));
-                calculateQuizResults(durationInMillis); // Auto-submit if the time runs out
+                calculateQuizResults(durationInMillis,true); // Auto-submit if the time runs out
             }
         }.start(); // Start the countdown immediately
     }
@@ -174,6 +176,9 @@ public class ExamAttempt extends AppCompatActivity {
         }
         if(minutes==0&&seconds<59){
             timerText.setTextColor(getResources().getColor(R. color. red));
+        }
+        if(seconds%10==0){
+            calculateQuizResults(durationInMillis-timeLeftInMillis,false); //update DB every 10 sec
         }
         timerText.setText(Functions.makeBold(timeFormatted));
     }
@@ -223,7 +228,7 @@ public class ExamAttempt extends AppCompatActivity {
         Button submitBtn = dialogView.findViewById(R.id.btnSubmit);
 
         submitBtn.setOnClickListener(v -> {
-            calculateQuizResults(durationInMillis-timeLeftInMillis);
+            calculateQuizResults(durationInMillis-timeLeftInMillis,true);
         });
 
         backBtn.setOnClickListener(v -> dialog.dismiss());
@@ -303,7 +308,7 @@ public class ExamAttempt extends AppCompatActivity {
 
         // Submit button to submit the exam
         btnSubmit.setOnClickListener(v -> {
-            calculateQuizResults(durationInMillis-timeLeftInMillis);
+            calculateQuizResults(durationInMillis-timeLeftInMillis,true);
         });
 
         dialog.show();
@@ -319,6 +324,11 @@ public class ExamAttempt extends AppCompatActivity {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();  // Make sure the dialog is dismissed when the activity is destroyed
         }
+
+        // Cancel the CountDownTimer if it's running
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         super.onDestroy();
     }
 
@@ -330,7 +340,7 @@ public class ExamAttempt extends AppCompatActivity {
     }
 
     // Method to calculate score and count answered questions
-    private void calculateQuizResults(long duration) {
+    private void calculateQuizResults(long duration, boolean submit) {
         String[] userAnswers = adapter.getUserAnswers(); // Get user's answers
         int score = 0;
         int totalAnswered = 0;
@@ -338,27 +348,38 @@ public class ExamAttempt extends AppCompatActivity {
         for (int i = 0; i < totalQuestions; i++) {
             Map<String, Object> questionData = adapter.questions.get(i); // Get question data
 
-            // Check if "correctAnswer" exists and is not null
-            String correctAnswer = questionData.get("correctAnswer") != null ? questionData.get("correctAnswer").toString() : null;
+            // Get the list of options
+            List<String> options = (List<String>) questionData.get("options");
+            // Get the index of the correct answer
+            Integer correctAnswerIndex = questionData.get("answer") != null ? Integer.parseInt(questionData.get("answer").toString()) : null;
             String userAnswer = userAnswers[i]; // User's answer for this question
 
             // Count as answered if the user selected an option
             if (userAnswer != null) {
                 totalAnswered++;
-                // Only compare if the correct answer is not null
-                if (correctAnswer != null && correctAnswer.equals(userAnswer)) {
-                    score++; // Increment score for a correct answer
+
+                // Ensure that the correct answer index is not null and the index is within the bounds of the options list
+                if (correctAnswerIndex != null && correctAnswerIndex >= 0 && correctAnswerIndex < options.size()) {
+                    if(correctAnswerIndex.equals(Integer.parseInt(userAnswer))){
+                        score+= ((Long) questionData.get("marks")).intValue();
+                    }
                 }
             }
         }
 
+        Log.d("userAnswers.length",String.valueOf(userAnswers.length));
+        Log.d("userAnswers", Arrays.toString(userAnswers));
+        Log.d("score",String.valueOf(score));
+        Log.d("totalAnswered",String.valueOf(totalAnswered));
+        Log.d("duration",String.valueOf(duration));
+
         // After calculating the score and totalAnswered, save it to Firestore
-        saveQuizResultsToFirestore(score, totalAnswered, duration);
+        saveQuizResultsToFirestore(score, totalAnswered, duration, submit);
     }
 
     // Method to save quiz results to Firestore
 // Method to save quiz results to Firestore
-    private void saveQuizResultsToFirestore(int score, int totalAnswered, long duration) {
+    private void saveQuizResultsToFirestore(int score, int totalAnswered, long duration, boolean submit) {
         String userEmail = new FirebaseHelper().getUserInfo().getEmail(); // Get current user email
 
         new FirebaseHelper().updateExamCompletion(userEmail, examId, duration / 1000, score, totalAnswered, task -> {
@@ -368,11 +389,13 @@ public class ExamAttempt extends AppCompatActivity {
                     dialog.dismiss();
                 }
                 // Successfully updated Firestore, proceed to next activity
-                Toast.makeText(ExamAttempt.this, "Exam Saved", Toast.LENGTH_SHORT).show();
-                // Now start the exam summary activity
-                Intent examSummaryIntent = new Intent(ExamAttempt.this, ExamResultSummary.class);
-                startActivity(examSummaryIntent);
-                finish(); // Ensure the current activity is finished
+                if(submit){
+                    Toast.makeText(ExamAttempt.this, "Exam Saved", Toast.LENGTH_SHORT).show();
+                    // Now start the exam summary activity
+                    Intent examSummaryIntent = new Intent(ExamAttempt.this, ExamResultSummary.class);
+                    startActivity(examSummaryIntent);
+                    finish(); // Ensure the current activity is finished
+                }
             } else {
                 // Handle error in updating Firestore
                 Toast.makeText(ExamAttempt.this, "Failed to save exam", Toast.LENGTH_SHORT).show();

@@ -118,6 +118,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/filtergroup"
         android:paddingTop="10dp"
-        android:layout_marginHorizontal="20dp"/>
+        android:layout_marginHorizontal="20dp" />
+
+    <!-- No Exams Found Message -->
+    <TextView
+        android:id="@+id/no_exams_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No eligible exams found"
+        android:textSize="18sp"
+        android:textColor="@android:color/darker_gray"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone" /> <!-- Initially hidden -->
 
 </RelativeLayout>

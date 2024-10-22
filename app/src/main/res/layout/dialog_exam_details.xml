@@ -81,7 +81,7 @@
         android:id="@+id/exam_total_time_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="120 minutes"
+        android:text="120 seconds"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/exam_total_time_label"
         app:layout_constraintTop_toTopOf="@id/exam_total_time_label"

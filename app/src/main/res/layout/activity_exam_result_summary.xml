@@ -176,7 +176,7 @@
                     android:id="@+id/time_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Minutes"
+                    android:text="Seconds Taken"
                     android:textSize="14sp"
                     android:textColor="#666666"
                     android:gravity="center"/>

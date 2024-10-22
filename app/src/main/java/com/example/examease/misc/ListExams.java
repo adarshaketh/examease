@@ -16,20 +16,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.examease.R;
 import com.example.examease.adapter.ExamListAdapter;
+import com.example.examease.db.FirebaseHelper;
+import com.example.examease.helpers.Functions;
 import com.example.examease.quiz.Exam_guidelines;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ListExams extends AppCompatActivity {
     private FirebaseFirestore db;
     private ListView examListView;
     private ArrayList<Map<String, String>> examList;
     private ExamListAdapter examListAdapter;
-
+    private Set<String> takenExamIds = new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +47,19 @@ public class ListExams extends AppCompatActivity {
         examListView = findViewById(R.id.exam_list);
         examList = new ArrayList<>();
 
+        TextView heading = findViewById(R.id.heading);
+        heading.setText(Functions.makeBold(getIntent().getStringExtra("title")));
+
         // Get the category index from the intent
         Intent intent = getIntent();
         int categoryIndex = intent.getIntExtra("categoryIndex", -1);
 
         if (categoryIndex != -1) {
-            // Fetch the exams for the selected category
-            fetchExamsForCategory(categoryIndex,null);
+            // Fetch the exams the user has already taken
+            fetchTakenExamIds(() -> {
+                // Fetch the exams for the selected category after fetching taken exams
+                fetchExamsForCategory(categoryIndex, null);
+            });
 
             // Setup difficulty filter buttons
             setupFilterButtons(categoryIndex);
@@ -60,6 +73,31 @@ public class ListExams extends AppCompatActivity {
             Toast.makeText(this, "Category not found", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // Fetch the exam IDs that the user has already taken from history
+    private void fetchTakenExamIds(Runnable onSuccess) {
+        String email = new FirebaseHelper().getUserInfo().getEmail(); // Replace with your logic to get the logged-in user's email
+        db.collection("history")
+                .document(email)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        List<Map<String, Object>> examIds = (List<Map<String, Object>>) documentSnapshot.get("examIds");
+                        if (examIds != null) {
+                            for (Map<String, Object> examEntry : examIds) {
+                                String examId = (String) examEntry.get("examId");
+                                takenExamIds.add(examId); // Add the examId to the set of taken exams
+                            }
+                        }
+                    }
+                    onSuccess.run(); // Proceed to fetch exams once taken exams are fetched
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed to fetch taken exams.", Toast.LENGTH_SHORT).show();
+                    onSuccess.run(); // Proceed even if fetching taken exams failed
+                });
+    }
+    // Fetch exams for a category, excluding exams that the user has already taken
     private void fetchExamsForCategory(int categoryIndex, Integer difficulty) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -72,10 +110,17 @@ public class ListExams extends AppCompatActivity {
                         examList.clear();  // Clear the previous list of exams
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Map<String, Object> exam = document.getData();
+                            String examId = exam.get("examId").toString();
+
+                            // Skip exams that the user has already taken
+                            if (takenExamIds.contains(examId)) {
+                                continue;
+                            }
+
+                            // Extract exam details
                             String examTitle = exam.get("title").toString();
                             String examDescription = exam.get("description").toString();
                             int examDifficulty = Integer.parseInt(exam.get("difficulty").toString());
-                            String examId = exam.get("examId").toString();
                             String imageUrl = exam.get("imageUrl").toString();
 
                             // Filter by difficulty if it's set
@@ -96,12 +141,21 @@ public class ListExams extends AppCompatActivity {
                         // Update the ListView with the filtered exams
                         examListAdapter = new ExamListAdapter(ListExams.this, examList);
                         examListView.setAdapter(examListAdapter);
+
+                        // Show or hide the "No Exams Found" message
+                        TextView noExamsFound = findViewById(R.id.no_exams_found);
+                        if (examList.isEmpty()) {
+                            noExamsFound.setVisibility(View.VISIBLE);  // Show the message
+                            examListView.setVisibility(View.GONE);     // Hide the list
+                        } else {
+                            noExamsFound.setVisibility(View.GONE);      // Hide the message
+                            examListView.setVisibility(View.VISIBLE);   // Show the list
+                        }
                     } else {
                         Toast.makeText(ListExams.this, "Error fetching exams", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-
     private void setupFilterButtons(int categoryIndex) {
         TextView allTab = findViewById(R.id.all_tab);
         TextView easyTab = findViewById(R.id.easy_tab);

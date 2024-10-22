@@ -45,4 +45,9 @@
     <string name="edit"><b>Edit</b></string>
     <string name="home"><b>Home</b></string>
     <string name="sign_out"><b>Sign Out</b></string>
+    <string name="describe_your_issue">Describe your issue</string>
+    <string name="rating">Rating:</string>
+    <string name="title_summary">Title (Summary)</string>
+    <string name="feedback">Feedback</string>
+    <string name="close">Close</string>
 </resources>

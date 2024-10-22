@@ -143,13 +143,25 @@ public class activity_profile extends AppCompatActivity {
                             // Update UI for exams attempted
                             examsAttempted.setText(String.valueOf(examIds.size()));
                         } else {
+                            minutesPractice.setText(String.valueOf(0));
+                            examsAttempted.setText(String.valueOf(0));
+                            successRate.setText(String.valueOf(0));
+                            totalExamTime.setText(String.valueOf(0));
                             Toast.makeText(activity_profile.this, "No attempted exams found.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
+                        minutesPractice.setText(String.valueOf(0));
+                        examsAttempted.setText(String.valueOf(0));
+                        successRate.setText(String.valueOf(0));
+                        totalExamTime.setText(String.valueOf(0));
                         Toast.makeText(activity_profile.this, "No user data found.", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> {
+                    minutesPractice.setText(String.valueOf(0));
+                    examsAttempted.setText(String.valueOf(0));
+                    successRate.setText(String.valueOf(0));
+                    totalExamTime.setText(String.valueOf(0));
                     Toast.makeText(activity_profile.this, "Failed to load user data.", Toast.LENGTH_SHORT).show();
                 });
     }
@@ -169,7 +181,7 @@ public class activity_profile extends AppCompatActivity {
                         int totalQns = (questions != null) ? questions.size() : 0;
                         // Accumulate the total exam time (duration is in minutes)
                         if (duration != null) {
-                            totalExamTimeInMinutes += duration.intValue();
+                            totalExamTimeInMinutes += duration.intValue()/60;
                         }
 
                         // Ensure totalMarks is not null before using it
@@ -185,6 +197,8 @@ public class activity_profile extends AppCompatActivity {
                             successRate.setText(percentage + "%");  // Update success rate in the UI
                         }
 
+                        totalExamTime.setText(String.valueOf(totalExamTimeInMinutes));
+
                         // Add the exam to the list
                         Exam exam = new Exam(examId, title, totalMarks != null ? totalMarks.intValue() : 0, totalQns ,String.valueOf(category), startTime);
                         examList.add(exam);
@@ -197,6 +211,8 @@ public class activity_profile extends AppCompatActivity {
                     }
                 })
                 .addOnFailureListener(e -> {
+                    successRate.setText(String.valueOf(0));
+                    totalExamTime.setText(String.valueOf(0));
                     Toast.makeText(activity_profile.this, "Failed to load exam details.", Toast.LENGTH_SHORT).show();
                 });
     }

@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/bgPrimary">
+
+    <!-- Close Button -->
+    <ImageButton
+        android:id="@+id/close_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/close"
+        android:contentDescription="@string/close"
+        app:tint="@android:color/white" />
+
+    <!-- Heading -->
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/feedback"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_toEndOf="@id/close_button" />
+
+    <!-- Title Input (Summary) -->
+    <EditText
+        android:id="@+id/input_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/title_summary"
+        android:textSize="16sp"
+        android:layout_below="@id/heading"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        android:background="@drawable/full_rounded_corners"
+        android:layout_marginHorizontal="20dp" />
+
+    <!-- Rating Bar -->
+    <TextView
+        android:id="@+id/ratingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rating"
+        android:textSize="16sp"
+        android:layout_below="@id/input_title"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:layout_below="@id/ratingLabel"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Description (Textarea) -->
+    <EditText
+        android:id="@+id/input_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/describe_your_issue"
+        android:textSize="16sp"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:minLines="3"
+        android:layout_below="@id/ratingBar"
+        android:layout_marginTop="20dp"
+        android:padding="12dp"
+        android:background="@drawable/full_rounded_corners"
+        android:layout_marginHorizontal="20dp" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:textSize="16sp"
+        android:paddingHorizontal="30dp"
+        android:layout_below="@id/input_description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.examease.misc;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.examease.R;
 import com.example.examease.profile.activity_profile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -60,6 +62,7 @@ public class Home extends AppCompatActivity {
 
         // Handle navigation item selection
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -74,6 +77,13 @@ public class Home extends AppCompatActivity {
                 }
                 return false;
             }
+        });
+
+        FloatingActionButton fabFeedback = findViewById(R.id.fab_feedback);
+        fabFeedback.setOnClickListener(v -> {
+            // Launch the feedback form activity
+            Intent feedbackIntent = new Intent(Home.this, Feedback.class);
+            startActivity(feedbackIntent);
         });
     }
 
@@ -116,6 +126,7 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 // Start the ExamsActivity and pass the category index
                 Intent intent = new Intent(Home.this, ListExams.class);
+                intent.putExtra("title",name);
                 intent.putExtra("categoryIndex", categoryIndex); // Pass the category index
                 startActivity(intent);
             }

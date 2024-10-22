@@ -134,7 +134,7 @@ public class ExamsAdapter extends RecyclerView.Adapter<ExamsAdapter.ExamViewHold
         // Populate the dialog fields
         examTitle.setText(exam.getTitle());
         examDifficulty.setText(getDifficultyLevel(exam.getDifficulty())); // Map difficulty
-        examTotalTime.setText(duration + " minutes");  // Display the fetched total time
+        examTotalTime.setText(duration + " seconds");  // Display the fetched total time
         examScore.setText(userScore + "/" + exam.getTotalMarks());  // Display the correct score for this attempt
         examAttemptedOn.setText(getFormattedDate(exam.getStartTime()));
         examQuestionsAttempted.setText(String.valueOf(noQnsAttempted));  // Display the number of questions attempted
