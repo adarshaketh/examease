@@ -367,12 +367,6 @@ public class ExamAttempt extends AppCompatActivity {
             }
         }
 
-        Log.d("userAnswers.length",String.valueOf(userAnswers.length));
-        Log.d("userAnswers", Arrays.toString(userAnswers));
-        Log.d("score",String.valueOf(score));
-        Log.d("totalAnswered",String.valueOf(totalAnswered));
-        Log.d("duration",String.valueOf(duration));
-
         // After calculating the score and totalAnswered, save it to Firestore
         saveQuizResultsToFirestore(score, totalAnswered, duration, submit);
     }
@@ -390,7 +384,7 @@ public class ExamAttempt extends AppCompatActivity {
                 }
                 // Successfully updated Firestore, proceed to next activity
                 if(submit){
-                    Toast.makeText(ExamAttempt.this, "Exam Saved", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ExamAttempt.this, "Exam Saved", Toast.LENGTH_SHORT).show();
                     // Now start the exam summary activity
                     Intent examSummaryIntent = new Intent(ExamAttempt.this, ExamResultSummary.class);
                     startActivity(examSummaryIntent);
