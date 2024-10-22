@@ -69,7 +69,12 @@ public class activity_profile extends AppCompatActivity {
         if (currentUser != null) {
             String email = currentUser.getEmail();
             profileEmail.setText(email);  // Set the email in the profile section
-            profileName.setText(Functions.makeBold(currentUser.getDisplayName()));
+            String displayName = currentUser.getDisplayName();
+            if (displayName != null && !displayName.isEmpty()) {
+                profileName.setText(Functions.makeBold(displayName));
+            } else {
+                profileName.setText("No Name");  // Or some default text
+            }
             fetchExamIdsAndDetails(email);  // Fetch exam data for the current user
         }
 
@@ -176,6 +181,7 @@ public class activity_profile extends AppCompatActivity {
                         String title = documentSnapshot.getString("title");
                         Long totalMarks = documentSnapshot.getLong("totalMarks");
                         Long category = documentSnapshot.getLong("category");
+                        Long difficulty = documentSnapshot.getLong("difficulty");
                         Long duration = documentSnapshot.getLong("duration");  // Fetch exam duration
                         List<?> questions = (List<?>) documentSnapshot.get("questions");
                         int totalQns = (questions != null) ? questions.size() : 0;
@@ -200,7 +206,7 @@ public class activity_profile extends AppCompatActivity {
                         totalExamTime.setText(String.valueOf(totalExamTimeInMinutes));
 
                         // Add the exam to the list
-                        Exam exam = new Exam(examId, title, totalMarks != null ? totalMarks.intValue() : 0, totalQns ,String.valueOf(category), startTime);
+                        Exam exam = new Exam(examId, title, totalMarks != null ? totalMarks.intValue() : 0, totalQns ,String.valueOf(difficulty), startTime);
                         examList.add(exam);
 
                         // Sort the list in descending order based on the start time
