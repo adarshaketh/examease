@@ -106,7 +106,7 @@ public class ExamResultSummary extends AppCompatActivity {
                         notAttemptedText.setText(String.valueOf(notAttemptedQuestions));
 
                         // Update total score in the format "score / totalQuestions"
-                        totalScoreText.setText("Total Score: " + score + " / " + totalQuestionsCount);
+                        totalScoreText.setText("Total Score: " + score + " / " + documentSnapshot.get("totalMarks"));
                     } else {
                         Toast.makeText(ExamResultSummary.this, "Exam data not found.", Toast.LENGTH_SHORT).show();
                     }
