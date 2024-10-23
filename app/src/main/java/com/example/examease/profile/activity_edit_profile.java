@@ -184,6 +184,7 @@ public class activity_edit_profile extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Log.d("ActivityEditProfile", "User profile updated with display name");
                     profileNameTextView.setText(newName); // Update the display name in the UI
+                    Toast.makeText(activity_edit_profile.this, "Profile Updated", Toast.LENGTH_SHORT).show(); // Add this toast
                 } else {
                     Log.e("ActivityEditProfile", "Failed to update display name", task.getException());
                 }
@@ -195,7 +196,7 @@ public class activity_edit_profile extends AppCompatActivity {
             user.updateEmail(newEmail).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Log.d("ActivityEditProfile", "User email address updated.");
-                    Toast.makeText(activity_edit_profile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_edit_profile.this, "Profile Updated", Toast.LENGTH_SHORT).show(); // Add this toast
                 } else {
                     Log.e("ActivityEditProfile", "Failed to update email", task.getException());
                     Toast.makeText(activity_edit_profile.this, "Failed to update email. Re-authentication might be required.", Toast.LENGTH_SHORT).show();
