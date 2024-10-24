@@ -389,12 +389,12 @@ public class ExamAttempt extends AppCompatActivity {
 
         new FirebaseHelper().updateExamCompletion(userEmail, examId, duration / 1000, score, totalAnswered, task -> {
             if (task.isSuccessful()) {
-                // Dismiss the dialog (if it's still showing)
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
-                }
                 // Successfully updated Firestore, proceed to next activity
                 if(submit){
+                    // Dismiss the dialog (if it's still showing)
+                    if (dialog != null && dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
                     //Toast.makeText(ExamAttempt.this, "Exam Saved", Toast.LENGTH_SHORT).show();
                     // Now start the exam summary activity
                     Intent examSummaryIntent = new Intent(ExamAttempt.this, ExamResultSummary.class);
