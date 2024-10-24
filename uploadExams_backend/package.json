@@ -1,0 +1,19 @@
+{
+  "name": "dummy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc lib/exams.ts --outDir build/",
+    "build1": "npx tsc lib/history.ts --outDir build/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "firebase-admin": "^12.6.0"
+  },
+  "devDependencies": {
+    "typescript": "5.1.6"
+  }
+}
