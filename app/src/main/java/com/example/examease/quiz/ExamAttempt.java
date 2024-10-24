@@ -101,6 +101,15 @@ public class ExamAttempt extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        //auto submit if app minimized
+        calculateQuizResults(durationInMillis-timeLeftInMillis,true);
+    }
+
+
     // Load exam questions from Firestore
     private void loadQuestionsFromFirestore() {
         db.collection("exams").document(examId).get().addOnSuccessListener(documentSnapshot -> {
